@@ -1,0 +1,25 @@
+on: [push]
+
+jobs:
+  obs_helper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Upload Folder To OBS
+        uses: huaweicloud/obs-helper@v1.1.0
+        id: upload_mult_files_to_obs
+        with:
+          access_key: ${{ secrets.ACCESSKEY }}
+          secret_key: ${{ secrets.SECRETACCESSKEY }}
+          region: ${region}
+          bucket_name: ${bucket_name}
+          # 可一次上传多个文件/文件夹
+          local_file_path: |
+                            resource/folder1
+                            resource/folder2
+                            file1.txt    
+          obs_file_path: src/upload 
+          operation_type: upload
+          include_self_folder: yes    # 上传多文件/文件夹时，此参数对文件夹有效，对文件无效，文件会直接传入obs_file_path目录下

@@ -1,0 +1,20 @@
+on: [push]
+
+jobs:
+  obs_helper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Upload and Rename File To OBS
+        uses: huaweicloud/obs-helper@v1.1.0
+        id: upload_file_to_obs
+        with:
+          access_key: ${{ secrets.ACCESSKEY }}
+          secret_key: ${{ secrets.SECRETACCESSKEY }}
+          region: ${region}
+          bucket_name: ${bucket_name}
+          local_file_path: resource/file1.txt
+          obs_file_path: src/upload/newFile1.txt   # 上传单个文件时，以/结尾代表不重命名传入至/前的文件夹中，否则默认重命名传入对应目录
+          operation_type: upload

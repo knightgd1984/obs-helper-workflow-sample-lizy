@@ -1,0 +1,24 @@
+on: [push]
+
+jobs:
+  obs_helper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Download and Rename File From OBS
+        uses: huaweicloud/obs-helper@v1.1.0
+        id: download_file_from_obs
+        with:
+          access_key: ${{ secrets.ACCESSKEY }}
+          secret_key: ${{ secrets.SECRETACCESSKEY }}
+          region: ${region}
+          bucket_name: ${bucket_name}
+          obs_file_path: src/upload/file1.txt
+          # 下载单个文件时，若输入的local_file_path是一个存在的文件夹，会将文件下入此文件夹中，若文件夹中有同名文件夹，则会取消本次下载
+          # 若不是一个存在的文件夹，则会将待下载的文件重命名并下载
+          # 此处因本地resource目录下不存在名为file3.txt的文件夹，所以最终文件会下载为resource/file3.txt
+          # 若存在resource/file3.txt文件夹，且不存在resource/file3.txt/file1.txt文件夹，则最终文件会下载为resource/file3.txt/file1.txt
+          local_file_path: resource/file3.txt
+          operation_type: download
