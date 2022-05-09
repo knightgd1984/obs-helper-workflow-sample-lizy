@@ -16,9 +16,9 @@ jobs:
           region: region
           bucket_name: bucket_name
           local_file_path: |
-                            resource/folder1
-                            resource/folder2
-                            file1.txt    
+                            resource/upload/folder1
+                            resource/upload/folder2
+                            resource/upload/file1.txt    
           obs_file_path: src/upload 
           operation_type: upload
           include_self_folder: yes

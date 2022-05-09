@@ -15,10 +15,10 @@ jobs:
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           region: region
           bucket_name: bucket_name
-          obs_file_path: src/upload/folder1
-          local_file_path: resource/folder2/folder2-1
+          obs_file_path: src/download
+          local_file_path: resource/download
           operation_type: download
           include_self_folder: yes
           exclude: |
-                    src/upload/folder1
-                    src/upload/folder2/file2-1.txt
+                    src/download/obsFolder1/obsFile1-1.txt
+                    src/download/obsFolder2
