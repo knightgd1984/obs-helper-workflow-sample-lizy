@@ -13,8 +13,8 @@ jobs:
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          region: ${region}
-          bucket_name: ${bucket_name}
+          region: region
+          bucket_name: bucket_name
           local_file_path: resource/file1.txt
-          obs_file_path: src/upload/newFile1.txt   # 上传单个文件时，以/结尾代表不重命名传入至/前的文件夹中，否则默认重命名传入对应目录
+          obs_file_path: src/upload/newFile1.txt
           operation_type: upload

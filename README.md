@@ -133,8 +133,8 @@ exclude参数中的对象在obs不存在时，不会影响本次下载。
           with:
             access_key: ${{ secrets.ACCESSKEY }}
             secret_key: ${{ secrets.SECRETACCESSKEY }}
-            region: ${region}
-            bucket_name: ${bucket_name}
+            region: region
+            bucket_name: bucket_name
             obs_file_path: src/upload/folder1
             local_file_path: resource/folder2/folder2-1
             operation_type: download

@@ -13,9 +13,9 @@ jobs:
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          region: ${region}
-          bucket_name: ${bucket_name}
+          region: region
+          bucket_name: bucket_name
           local_file_path: resource/folder2
-          obs_file_path: src/upload/newFile1.txt   # 上传文件夹时，会自动创建obs_file_path目录并将本地文件夹内容上传至此目录下
+          obs_file_path: src/upload/newFile1.txt
           operation_type: upload
-          include_self_folder: yes    # include_self_folder参数为yes/y/ture时，会将folder2也上传至obs_file_path，不填默认不传
+          include_self_folder: yes

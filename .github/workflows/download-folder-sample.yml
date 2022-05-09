@@ -13,13 +13,12 @@ jobs:
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          region: ${region}
-          bucket_name: ${bucket_name}
+          region: region
+          bucket_name: bucket_name
           obs_file_path: src/upload/folder1
-          local_file_path: resource/folder2/folder2-1   # 下载文件夹时，必须保证本地存在目标文件夹
+          local_file_path: resource/folder2/folder2-1
           operation_type: download
-          include_self_folder: yes    # 若为yes/y/true，下载时会包含folder1文件夹
-          # 下载时排除的文件/文件夹，可一次排除多个路径
+          include_self_folder: yes
           exclude: |
                     src/upload/folder1
                     src/upload/folder2/file2-1.txt
