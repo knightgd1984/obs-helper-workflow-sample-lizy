@@ -300,7 +300,7 @@
     └── resource
             └── download
                     └── obsFile2-1.txt
-                            └── localFile.txt
+                            ├── localFile.txt
                             └── obsFile2-1.txt(此次下载的文件)
 ```
 1).本地文件夹'resource'、'resource/download'都存在;
@@ -340,7 +340,7 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
     └── resource
             └── download
                     ├── obsFolder1(此次下载的文件夹)
-                            └── obsFile1-1.txt（此次下载的文件）
+                            ├── obsFile1-1.txt（此次下载的文件）
                             └── obsFile1-2.txt（此次下载的文件）
                     ├── obsFolder2(此次下载的文件夹)
                             └── obsFile2-1.txt（此次下载的文件）
@@ -375,7 +375,7 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
   src/download/obsFolder1/obsFile1-2.txt
   src/download/obsFile1.txt
 ```
-下载成功后，本地生成的目录结构应该为
+下载成功后，本地的目录结构应该为
 ```text
     └── resource
             └── download
