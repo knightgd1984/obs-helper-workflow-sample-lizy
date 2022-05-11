@@ -4,17 +4,14 @@ jobs:
   obs_helper:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        
-      - name: Download and Rename File From OBS
+      - name: Download File From OBS
         uses: huaweicloud/obs-helper@v1.1.0
         id: download_file_from_obs
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          region: region
-          bucket_name: bucket_name
+          region: ${region}
+          bucket_name: ${bucket_name}
           obs_file_path: src/download/obsFile1.txt
-          local_file_path: resource/download/file3.txt
+          local_file_path: resource/download
           operation_type: download

@@ -4,14 +4,14 @@ jobs:
   obs_helper:
     runs-on: ubuntu-latest
     steps:
-      - name: Download Folder From OBS
+      - name: Download and Rename File From OBS
         uses: huaweicloud/obs-helper@v1.1.0
-        id: download_folder_from_obs
+        id: download_file_from_obs
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           region: ${region}
           bucket_name: ${bucket_name}
-          obs_file_path: src/download
-          local_file_path: resource/download
+          obs_file_path: src/download/obsFile1.txt
+          local_file_path: resource/download/file3.txt
           operation_type: download

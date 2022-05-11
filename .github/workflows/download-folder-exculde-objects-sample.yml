@@ -4,7 +4,7 @@ jobs:
   obs_helper:
     runs-on: ubuntu-latest
     steps:
-      - name: Download Folder From OBS
+      - name: Download Folder Exclude Some Objects From OBS
         uses: huaweicloud/obs-helper@v1.1.0
         id: download_folder_from_obs
         with:
@@ -15,3 +15,7 @@ jobs:
           obs_file_path: src/download
           local_file_path: resource/download
           operation_type: download
+          include_self_folder: yes
+          exclude: |
+            src/download/obsFolder1/obsFile1-1.txt
+            src/download/obsFolder2
