@@ -120,7 +120,7 @@
 完整样例： .github/workflows/upload-folder-sample.yml
 #### 将本地文件夹resource/upload/folder2及其内的全部文件和文件夹上传至桶内src/upload/newFolder中
 ```yaml
-        - name: Upload Folder and Folder Itself To OBS
+        - name: Upload Folder To OBS
           uses: huaweicloud/obs-helper@v1.1.0
           id: upload_folder_to_obs
           with:
