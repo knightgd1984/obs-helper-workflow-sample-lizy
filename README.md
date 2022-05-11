@@ -218,7 +218,8 @@
 ```text
   resource
       └── download
-              └──  obsFile2-1.txt(文件夹)
+              └── obsFile2-1.txt(文件夹)
+                     └──  localFile.txt
 ```
 ### 1、从OBS下载文件
 下载文件时，首先会检查本地是否存在local_file_path代表的文件/文件夹，
@@ -244,7 +245,8 @@
 ```text
     └── resource
             └── download
-                    ├──  obsFile2-1.txt(文件夹)
+                    ├── obsFile2-1.txt
+                            └──  localFile.txt
                     └── obsFile1.txt(此次下载的文件)
 ```
 1).本地存在文件夹'resource'、'resource/download';
@@ -270,7 +272,8 @@
 ```text
     └── resource
             └── download
-                    ├──  obsFile2-1.txt(文件夹)
+                    ├── obsFile2-1.txt
+                            └── localFile.txt
                     └── file3.txt(此次下载的文件)
 ```
 1).本地文件夹'resource'、'resource/download'都存在;
@@ -292,11 +295,12 @@
             local_file_path: resource/download
             operation_type: download
 ```
-下载成功后，本地生成的目录结构应该为
+下载成功后，本地的目录结构应该为
 ```text
     └── resource
             └── download
-                    └── obsFile2-1.txt(文件夹)
+                    └── obsFile2-1.txt
+                            └── localFile.txt
                             └── obsFile2-1.txt(此次下载的文件)
 ```
 1).本地文件夹'resource'、'resource/download'都存在;
@@ -322,7 +326,16 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
             local_file_path: resource/download
             operation_type: download
 ```
-下载成功后，本地生成的目录结构应该为
+此时待下载的文件和文件夹如下:
+```text
+  src/download/obsFolder1
+  src/download/obsFolder1/obsFile1-1.txt
+  src/download/obsFolder1/obsFile1-2.txt
+  src/download/obsFolder2
+  src/download/obsFolder2/obsFile2-1.txt
+  src/download/obsFile1.txt
+```
+下载成功后，本地的目录结构应该为
 ```text
     └── resource
             └── download
@@ -331,7 +344,9 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
                             └── obsFile1-2.txt（此次下载的文件）
                     ├── obsFolder2(此次下载的文件夹)
                             └── obsFile2-1.txt（此次下载的文件）
-                    └── obsFile1.txt（此次下载的文件）
+                    ├── obsFile1.txt（此次下载的文件）
+                    └── obsFile2-1.txt
+                            └── localFile.txt
 ```
 完整样例： .github/workflows/download-folder-sample.yml
 #### 下载obs中的src/download文件夹及其内容到本地目录resource/download中，并排除下载src/upload/folder1文件夹和src/upload/folder2/file2-1.txt
@@ -353,13 +368,22 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
               src/download/obsFolder1/obsFile1-1.txt
               src/download/obsFolder2
 ```
+因参数include_self_folder为true，并且排除了文件'src/download/obsFolder1/obsFile1-1.txt'和文件夹'src/download/obsFolder2'，所以此时待下载的文件和文件夹如下:
+```text
+  src/download
+  src/download/obsFolder1
+  src/download/obsFolder1/obsFile1-2.txt
+  src/download/obsFile1.txt
+```
 下载成功后，本地生成的目录结构应该为
 ```text
     └── resource
             └── download
-                    └── download(此次下载的文件夹)
+                    ├── download(此次下载的文件夹)
                             ├── obsFolder1(此次下载的文件夹)
                                     └── obsFile1-2.txt（此次下载的文件）
                             └── obsFile1.txt（此次下载的文件）
+                    └── obsFile2-1.txt
+                            └── localFile.txt
 ```
 完整样例： .github/workflows/download-folder-exculde-objects-sample.yml
