@@ -1,5 +1,5 @@
 # 上传对象至OBS/从OBS下载对象示例
-基于github workflow，实现：
+[OBS Helper action](https://github.com/marketplace/actions/huaweicloud-obs-helper)基于github workflow，实现：
 1、上传文件/文件夹至OBS
 2、从OBS下载文件/文件夹
 
@@ -411,3 +411,5 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
                       └── localFile.txt
 ```
 完整样例： .github/workflows/download-folder-exculde-objects-sample.yml
+
+点击跳转至Action：[HuaweiCloud Obs Helper](https://github.com/marketplace/actions/huaweicloud-obs-helper)
