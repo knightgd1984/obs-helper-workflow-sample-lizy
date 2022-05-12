@@ -1,0 +1,24 @@
+on: [push]
+
+jobs:
+  obs_helper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Upload Folder To OBS
+        uses: huaweicloud/obs-helper@v1.1.0
+        id: upload_mult_files_to_obs
+        with:
+          access_key: ${{ secrets.ACCESSKEY }}
+          secret_key: ${{ secrets.SECRETACCESSKEY }}
+          region: ${region}
+          bucket_name: ${bucket_name}
+          local_file_path: |
+            resource/upload/folder1
+            resource/upload/folder2
+            resource/upload/file1.txt    
+          obs_file_path: src/upload 
+          operation_type: upload
+          include_self_folder: yes
