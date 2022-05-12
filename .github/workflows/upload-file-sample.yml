@@ -4,6 +4,9 @@ jobs:
   obs_helper:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
       - name: Upload File To OBS
         uses: huaweicloud/obs-helper@v1.1.0
         id: upload_file_to_obs

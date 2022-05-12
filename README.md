@@ -102,16 +102,24 @@
 ```
 因include_self_folder参数为false，所以此时待上传的文件和文件夹如下:
 ```text
-  resource/upload/folder2/folder2-1
-  resource/upload/folder2/folder2-1/folder2-1-1
-  resource/upload/folder2/folder2-1/file2-1-1.txt
-  resource/upload/folder2/file2-1.txt
+  resource
+      └── upload
+              ├── folder1
+                      ├── file1-1.txt
+                      └── file1-2.txt
+              ├── folder2
+                      ├── folder2-1(待上传)
+                              ├── folder2-1-1(待上传)
+                              └── file2-1-1.txt(待上传)
+                      └── file2-1.txt(待上传)
+              ├── file1.txt
+              └── file2.txt
 ```
 上传成功后，您的OBS桶内目录结构应该为
 ```text
   src
     └── upload
-            └── newFolder
+            └── newFolder(自动创建)
                     ├── folder2-1
                             ├── folder2-1-1
                             └── file2-1-1.txt
@@ -135,17 +143,24 @@
 ```
 因include_self_folder参数为true，上传文件夹时包含文件夹自身，所以此时待上传的文件和文件夹如下:
 ```text
-  resource/upload/folder2
-  resource/upload/folder2/folder2-1
-  resource/upload/folder2/folder2-1/folder2-1-1
-  resource/upload/folder2/folder2-1/file2-1-1.txt
-  resource/upload/folder2/file2-1.txt
+  resource
+      └── upload
+              ├── folder1
+                      ├── file1-1.txt
+                      └── file1-2.txt
+              ├── folder2(待上传)
+                      ├── folder2-1(待上传)
+                              ├── folder2-1-1(待上传)
+                              └── file2-1-1.txt(待上传)
+                      └── file2-1.txt(待上传)
+              ├── file1.txt
+              └── file2.txt
 ```
 上传成功后，您的OBS桶内目录结构应该为
 ```text
   src
     └── upload
-            └── newFolder
+            └── newFolder(自动创建)
                     └── folder2
                             ├── folder2-1
                                     ├── folder2-1-1
@@ -175,15 +190,18 @@
 ```
 因include_self_folder参数为true，所以此时待上传的文件和文件夹如下：
 ```text
-  resource/upload/folder1
-  resource/upload/folder1/file1-1.txt
-  resource/upload/folder1/file1-2.txt
-  resource/upload/folder2
-  resource/upload/folder2/folder2-1
-  resource/upload/folder2/folder2-1/folder2-1-1
-  resource/upload/folder2/folder2-1/file2-1-1.txt
-  resource/upload/folder2/file2-1.txt
-  resource/upload/file1.txt
+  resource
+      └── upload
+              ├── folder1(待上传)
+                      ├── file1-1.txt(待上传)
+                      └── file1-2.txt(待上传)
+              ├── folder2(待上传)
+                      ├── folder2-1(待上传)
+                              ├── folder2-1-1(待上传)
+                              └── file2-1-1.txt(待上传)
+                      └── file2-1.txt(待上传)
+              ├── file1.txt(待上传)
+              └── file2.txt
 ```
 上传成功后，您的OBS桶内目录结构应该为
 ```text
@@ -243,11 +261,11 @@
 ```
 下载成功后，本地的目录结构应该为：
 ```text
-    └── resource
-            └── download
-                    ├── obsFile2-1.txt
-                            └──  localFile.txt
-                    └── obsFile1.txt(此次下载的文件)
+    resource
+        └── download
+                ├── obsFile2-1.txt
+                        └──  localFile.txt
+                └── obsFile1.txt(此次下载的文件)
 ```
 1).本地存在文件夹'resource'、'resource/download';
 2).'resource/download'文件夹中不存在名为'obsFile1.txt'的文件夹;
@@ -270,11 +288,11 @@
 ```
 下载成功后，本地的目录结构应该为：
 ```text
-    └── resource
-            └── download
-                    ├── obsFile2-1.txt
-                            └── localFile.txt
-                    └── file3.txt(此次下载的文件)
+    resource
+        └── download
+                ├── obsFile2-1.txt
+                        └── localFile.txt
+                └── file3.txt(此次下载的文件)
 ```
 1).本地文件夹'resource'、'resource/download'都存在;
 2).'resource/download'文件夹中不存在名为'file3.txt'的文件夹;
@@ -297,11 +315,11 @@
 ```
 下载成功后，本地的目录结构应该为
 ```text
-    └── resource
-            └── download
-                    └── obsFile2-1.txt
-                            ├── localFile.txt
-                            └── obsFile2-1.txt(此次下载的文件)
+    resource
+        └── download
+                └── obsFile2-1.txt
+                        ├── localFile.txt
+                        └── obsFile2-1.txt(此次下载的文件)
 ```
 1).本地文件夹'resource'、'resource/download'都存在;
 2).'resource/download'中存在和待下载文件同名的文件夹'obsFile2-1.txt';
@@ -328,25 +346,27 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
 ```
 此时待下载的文件和文件夹如下:
 ```text
-  src/download/obsFolder1
-  src/download/obsFolder1/obsFile1-1.txt
-  src/download/obsFolder1/obsFile1-2.txt
-  src/download/obsFolder2
-  src/download/obsFolder2/obsFile2-1.txt
-  src/download/obsFile1.txt
+  src
+    └── download
+            ├── obsFolder1(待下载)
+                    ├── obsFile1-1.txt(待下载)
+                    └── obsFile1-2.txt(待下载)
+            ├── obsFolder2(待下载)
+                    └── obsFile2-1.txt(待下载)
+            └── obsFile1.txt(待下载)
 ```
 下载成功后，本地的目录结构应该为
 ```text
-    └── resource
-            └── download
-                    ├── obsFolder1(此次下载的文件夹)
-                            ├── obsFile1-1.txt（此次下载的文件）
-                            └── obsFile1-2.txt（此次下载的文件）
-                    ├── obsFolder2(此次下载的文件夹)
-                            └── obsFile2-1.txt（此次下载的文件）
-                    ├── obsFile1.txt（此次下载的文件）
-                    └── obsFile2-1.txt
-                            └── localFile.txt
+  resource
+      └── download
+              ├── obsFolder1(此次下载的文件夹)
+                      ├── obsFile1-1.txt（此次下载的文件）
+                      └── obsFile1-2.txt（此次下载的文件）
+              ├── obsFolder2(此次下载的文件夹)
+                      └── obsFile2-1.txt（此次下载的文件）
+              ├── obsFile1.txt（此次下载的文件）
+              └── obsFile2-1.txt
+                      └── localFile.txt
 ```
 完整样例： .github/workflows/download-folder-sample.yml
 #### 下载obs中的src/download文件夹及其内容到本地目录resource/download中，并排除下载src/upload/folder1文件夹和src/upload/folder2/file2-1.txt
@@ -370,20 +390,24 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
 ```
 因参数include_self_folder为true，并且排除了文件'src/download/obsFolder1/obsFile1-1.txt'和文件夹'src/download/obsFolder2'，所以此时待下载的文件和文件夹如下:
 ```text
-  src/download
-  src/download/obsFolder1
-  src/download/obsFolder1/obsFile1-2.txt
-  src/download/obsFile1.txt
+  src
+    └── download(待下载)
+            ├── obsFolder1(待下载)
+                    ├── obsFile1-1.txt
+                    └── obsFile1-2.txt(待下载)
+            ├── obsFolder2
+                    └── obsFile2-1.txt
+            └── obsFile1.txt(待下载)
 ```
 下载成功后，本地的目录结构应该为
 ```text
-    └── resource
-            └── download
-                    ├── download(此次下载的文件夹)
-                            ├── obsFolder1(此次下载的文件夹)
-                                    └── obsFile1-2.txt（此次下载的文件）
-                            └── obsFile1.txt（此次下载的文件）
-                    └── obsFile2-1.txt
-                            └── localFile.txt
+  resource
+      └── download
+              ├── download(此次下载的文件夹)
+                      ├── obsFolder1(此次下载的文件夹)
+                              └── obsFile1-2.txt（此次下载的文件）
+                      └── obsFile1.txt（此次下载的文件）
+              └── obsFile2-1.txt
+                      └── localFile.txt
 ```
 完整样例： .github/workflows/download-folder-exculde-objects-sample.yml
