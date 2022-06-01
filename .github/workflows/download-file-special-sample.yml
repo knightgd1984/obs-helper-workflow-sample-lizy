@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download and Rename File From OBS
-        uses: huaweicloud/obs-helper@v1.1.0
+        uses: huaweicloud/obs-helper@v1.2.0
         id: download_file_from_obs
         with:
           access_key: ${{ secrets.ACCESSKEY }}
