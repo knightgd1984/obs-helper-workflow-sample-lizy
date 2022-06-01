@@ -29,8 +29,8 @@
 **region**：OBS所在区域字符串，默认为*cn-north-4*，可以使用[目前OBS支持的region](#regionList)，**必填**；  
 **bucket_name**：OBS的目标桶名，**必填**；  
 **operation_type**：要进行的操作，创建桶请使用*createbucket*，删除桶请使用*deletebucket*，**必填**；  
-**ACL**：创建桶时，桶的预定义访问策略，默认为*AclPrivate*（私有读写），可以使用[支持的预定义访问策略](#ACLList)，**选填**；  
-**storage_class**： 创建桶时，桶的存储类型，默认为*StorageClassStandard*（标准存储），可以使用[支持的存储类型](#storageClassList)，**选填**；  
+**ACL**：创建桶时，桶的预定义访问策略，默认为*AclPrivate*（私有读写），可以使用[目前支持的预定义访问策略](#ACLList)，**选填**；  
+**storage_class**： 创建桶时，桶的存储类型，默认为*StorageClassStandard*（标准存储），可以使用[目前支持的存储类型](#storageClassList)，**选填**；  
 **clear_bucket**：删除桶时，是否清空桶内全部对象/碎片，默认为*true*，**选填**；  
 ### **参数支持列表**
 <p id="regionList"></p>
@@ -515,8 +515,8 @@ OBS桶命名规则：
 **region**：OBS所在区域字符串，默认为*cn-north-4*，可以使用[目前OBS支持的region](#regionList)，**必填**；  
 **bucket_name**：OBS的目标桶名，**必填**；  
 **operation_type**：要进行的操作，创建桶请使用*createbucket*，**必填**；  
-**ACL**：创建桶时，桶的预定义访问策略，默认为*AclPrivate*（私有读写），可以使用[支持的预定义访问策略](#ACLList)，**选填**；  
-**storage_class**： 创建桶时，桶的存储类型，默认为*StorageClassStandard*（标准存储），可以使用[支持的存储类型](#storageClassList)，**选填**；  
+**ACL**：创建桶时，桶的预定义访问策略，默认为*AclPrivate*（私有读写），可以使用[目前支持的预定义访问策略](#ACLList)，**选填**；  
+**storage_class**： 创建桶时，桶的存储类型，默认为*StorageClassStandard*（标准存储），可以使用[目前支持的存储类型](#storageClassList)，**选填**；  
 ### 默认创建： 
 假设您的OBS中不存在名为'bucket-test'的桶   
 ```yaml
@@ -530,7 +530,7 @@ OBS桶命名规则：
             operationType: createbucket
             bucket_name: bucket-test
 ```
-执行成功后，您的OBS中会新增一个名为*bucket-test*的桶，桶的预定义访问策略为*私有读写*，存储类型*标准存储*
+执行成功后，您的OBS中会新增一个名为'bucket-test'的桶，桶的预定义访问策略为**私有读写**，存储类型**标准存储**
 
 完整样例： .github/workflows/create-bucket-default.yml
 ### 指定预定义访问策略/存储类型：
@@ -548,9 +548,9 @@ OBS桶命名规则：
             ACL: AclPublicReadWrite
             storage_class: StorageClassWarm
 ```
-执行成功后，您的OBS中会新增一个名为*bucket-test*的桶，桶的预定义访问策略为*公共读写*，存储类型*低频访问存储*
+执行成功后，您的OBS中会新增一个名为'bucket-test'的桶，桶的预定义访问策略为**公共读写**，存储类型**低频访问存储**
 
-完整样例： .github/workflows/create-bucket.yml
+完整样例： [.github/workflows/create-bucket.yml](.github/workflows/create-bucket.yml)
 
 <p id="deleteBucketSample"></p>
 
@@ -563,7 +563,7 @@ OBS桶命名规则：
 删除桶时，action**默认**会执行如下步骤：  
 1).判断桶是否为空，若桶非空，清空桶
 2).删除桶  
-若不允许action执行清空步骤，请设置参数'clear_bucket'为false。此时如果桶不为空，则会删除失败并提示桶不为空。
+若不允许action执行清空步骤，请设置参数*clear_bucket*为false。此时如果桶不为空，则会删除失败并提示桶不为空。
 ### **参数说明**
 **access_key**: 华为云账号的AK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
 **secret_key**：华为云账号的SK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
@@ -584,7 +584,7 @@ OBS桶命名规则：
             operationType: deletebucket
             bucket_name: bucket-test
 ```
-执行成功后，桶*bucket-test*会被清空并删除。
+执行成功后，桶'bucket-test'会被清空并删除。
 
 完整样例： .github/workflows/delete-bucket-default.yml  
 ### 不清空桶内对象+删除桶
@@ -601,7 +601,7 @@ OBS桶命名规则：
             bucket_name: bucket-test
             clear_bucket: false
 ```
-执行后，如果桶*bucket-test*为空，桶会被删除；若不为空，则会执行失败，桶和桶内对象均不会被删除。
+执行后，如果桶'bucket-test'为空，桶会被删除；若不为空，则会执行失败，桶和桶内对象均不会被删除。
 
 完整样例： .github/workflows/delete-bucket-no-clear.yml  
 
