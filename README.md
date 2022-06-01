@@ -127,7 +127,7 @@
     └── upload
             └── file1.txt
 ```
-完整样例： .github/workflows/upload-file-sample.yml
+完整样例： [.github/workflows/upload-file-sample.yml](.github/workflows/upload-file-sample.yml)
 #### 重命名上传：
 将本地文件resource/upload/file1.txt上传至桶内src/upload并重命名文件为newFile1.txt
 ```yaml
@@ -149,7 +149,7 @@
     └── upload
             └── newFile1.txt
 ```
-完整样例： .github/workflows/upload-file-rename-sample.yml
+完整样例： [.github/workflows/upload-file-rename-sample.yml](.github/workflows/upload-file-rename-sample.yml)
 ### 2、上传文件夹至OBS
 #### 不包含根文件夹上传：
 将本地文件夹resource/upload/folder2内的全部文件和文件夹上传至桶内src/upload/newFolder中
@@ -192,7 +192,7 @@
                             └── file2-1-1.txt
                     └── file2-1.txt
 ```
-完整样例： .github/workflows/upload-folder-sample.yml
+完整样例： [.github/workflows/upload-folder-sample.yml](.github/workflows/upload-folder-sample.yml)
 #### 包含根文件夹上传：
 将本地文件夹resource/upload/folder2及其内的全部文件和文件夹上传至桶内src/upload/newFolder中
 ```yaml
@@ -235,7 +235,7 @@
                                     └── file2-1-1.txt
                             └── file2-1.txt
 ```
-完整样例： .github/workflows/upload-folder-include-self-sample.yml
+完整样例： [.github/workflows/upload-folder-include-self-sample.yml](.github/workflows/upload-folder-include-self-sample.yml)
 ### 3、上传多个文件/文件夹至OBS
 #### 将本地文件夹resource/upload/folder1、resource/upload/folder2，和本地文件resource/upload/file1.txt上传至桶内src/upload目录中
 上传多文件/文件夹时，include_self_folder参数仅对文件夹有效，对文件无效，file1.txt在上传成功后的路径为src/upload/file1.txt
@@ -285,7 +285,7 @@
                     └── file2-1.txt
             └── file1.txt
 ```
-完整样例： .github/workflows/upload-mult-files-sample.yml
+完整样例： [.github/workflows/upload-mult-files-sample.yml](.github/workflows/upload-mult-files-sample.yml)
 
 <p id="downloadSample"></p>
 
@@ -353,7 +353,7 @@
 2).'resource/download'文件夹中不存在名为'obsFile1.txt'的文件夹;  
 所以最终obs上的对象'src/download/obsFile1.txt'会下载为本地文件'resource/download/obsFile1.txt'  
 
-完整样例： .github/workflows/download-file-sample.yml
+完整样例： [.github/workflows/download-file-sample.yml](.github/workflows/download-file-sample.yml)
 #### 重命名下载：
 下载obs中的文件src/download/obsFile1.txt至本地resource/download目录，并重命名为file3.txt
 ```yaml
@@ -381,7 +381,7 @@
 2).'resource/download'文件夹中不存在名为'file3.txt'的文件夹;  
 所以最终obs上的对象'src/download/obsFile1.txt'会下载为本地文件'resource/download/file3.txt'  
 
-完整样例： .github/workflows/download-file-rename-sample.yml
+完整样例： [.github/workflows/download-file-rename-sample.yml](.github/workflows/download-file-rename-sample.yml)
 #### 特殊情景-本地目录存在与待下载文件同名的文件夹：
 下载obs中的文件src/download/obsFolder2/obsFile2-1.txt至本地resource/download目录
 ```yaml
@@ -411,7 +411,7 @@
 所以最终文件会下载为resource/download/obsFile2-1.txt/obsFile2-1.txt；  
 Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹'obsFile2-1.txt'，则此次下载会失败。  
 
-完整样例： .github/workflows/download-file-special-sample.yml
+完整样例： [.github/workflows/download-file-special-sample.yml](.github/workflows/download-file-special-sample.yml)
 ### 2、从OBS下载文件夹
 下载文件夹时，参数*exclude*中的对象在obs不存在时，不会影响本次下载。  
 #### 普通下载：
@@ -453,7 +453,7 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
               └── obsFile2-1.txt
                       └── localFile.txt
 ```
-完整样例： .github/workflows/download-folder-sample.yml
+完整样例： [.github/workflows/download-folder-sample.yml](.github/workflows/download-folder-sample.yml)
 #### 排除下载：
 下载obs中的src/download文件夹及其内容到本地目录resource/download中，并排除src/upload/folder1文件夹和src/upload/folder2/file2-1.txt
 ```yaml
@@ -496,7 +496,7 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
               └── obsFile2-1.txt
                       └── localFile.txt
 ```
-完整样例： .github/workflows/download-folder-exculde-objects-sample.yml
+完整样例： [.github/workflows/download-folder-exculde-objects-sample.yml](.github/workflows/download-folder-exculde-objects-sample.yml)
 
 # **桶操作使用样例**
 OBS桶命名规则：  
@@ -532,7 +532,7 @@ OBS桶命名规则：
 ```
 执行成功后，您的OBS中会新增一个名为'bucket-test'的桶，桶的预定义访问策略为**私有读写**，存储类型**标准存储**
 
-完整样例： .github/workflows/create-bucket-default.yml
+完整样例： [.github/workflows/create-bucket-default.yml](.github/workflows/create-bucket-default.yml)
 ### 指定预定义访问策略/存储类型：
 假设您的OBS中不存在名为'bucket-test'的桶   
 ```yaml
@@ -586,7 +586,7 @@ OBS桶命名规则：
 ```
 执行成功后，桶'bucket-test'会被清空并删除。
 
-完整样例： .github/workflows/delete-bucket-default.yml  
+完整样例： [.github/workflows/delete-bucket-default.yml](.github/workflows/delete-bucket-default.yml)  
 ### 不清空桶内对象+删除桶
 假设您的OBS中存在名为'bucket-test'的桶
 ```yaml
@@ -603,6 +603,6 @@ OBS桶命名规则：
 ```
 执行后，如果桶'bucket-test'为空，桶会被删除；若不为空，则会执行失败，桶和桶内对象均不会被删除。
 
-完整样例： .github/workflows/delete-bucket-no-clear.yml  
+完整样例： [.github/workflows/delete-bucket-no-clear.yml](.github/workflows/delete-bucket-no-clear.yml)  
 
 点击跳转至Action：[HuaweiCloud Obs Helper](https://github.com/marketplace/actions/huaweicloud-obs-helper)
