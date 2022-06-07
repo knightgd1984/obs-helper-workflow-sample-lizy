@@ -1,6 +1,6 @@
 # OBS Helper action 各功能使用示例
 [对象存储服务（Object Storage Service，OBS）](https://www.huaweicloud.com/product/obs.html)是一个基于对象的海量存储服务，为客户提供海量、安全、高可靠、低成本的数据存储能力。
-您可以使用[OBS Helper action](https://github.com/marketplace/actions/huaweicloud-obs-helper)实现如下对OBS的操作：
+您可以使用[OBS Helper action](https://github.com/marketplace/actions/huaweicloud-obs-helper)实现如下对OBS的操作：  
 1、[上传文件/文件夹](#uploadSample)  
 2、[下载文件/文件夹](#downloadSample)  
 3、[创建桶](#createBucketSample)  
@@ -345,8 +345,8 @@
                         └──  localFile.txt
                 └── obsFile1.txt(此次下载的文件)
 ```
-1).本地存在文件夹'resource'、'resource/download';  
-2).'resource/download'文件夹中不存在名为'obsFile1.txt'的文件夹;  
+1.本地存在文件夹'resource'、'resource/download';  
+2.'resource/download'文件夹中不存在名为'obsFile1.txt'的文件夹;  
 所以最终obs上的对象'src/download/obsFile1.txt'会下载为本地文件'resource/download/obsFile1.txt'  
 
 完整样例： [.github/workflows/download-file-sample.yml](.github/workflows/download-file-sample.yml)
@@ -373,8 +373,8 @@
                         └── localFile.txt
                 └── file3.txt(此次下载的文件)
 ```
-1).本地文件夹'resource'、'resource/download'都存在;  
-2).'resource/download'文件夹中不存在名为'file3.txt'的文件夹;  
+1.本地文件夹'resource'、'resource/download'都存在;  
+2.'resource/download'文件夹中不存在名为'file3.txt'的文件夹;  
 所以最终obs上的对象'src/download/obsFile1.txt'会下载为本地文件'resource/download/file3.txt'  
 
 完整样例： [.github/workflows/download-file-rename-sample.yml](.github/workflows/download-file-rename-sample.yml)
@@ -401,9 +401,9 @@
                         ├── localFile.txt
                         └── obsFile2-1.txt(此次下载的文件)
 ```
-1).本地文件夹'resource'、'resource/download'都存在;  
-2).'resource/download'中存在和待下载文件同名的文件夹'obsFile2-1.txt';  
-3).文件夹'resource/download/obsFile2-1.txt'中不存在文件夹obsFile2-1.txt;  
+1.本地文件夹'resource'、'resource/download'都存在;  
+2.'resource/download'中存在和待下载文件同名的文件夹'obsFile2-1.txt';  
+3.文件夹'resource/download/obsFile2-1.txt'中不存在文件夹obsFile2-1.txt;  
 所以最终文件会下载为resource/download/obsFile2-1.txt/obsFile2-1.txt；  
 Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹'obsFile2-1.txt'，则此次下载会失败。  
 
@@ -499,12 +499,12 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
 
 ## **创建桶使用样例**  
 ### **创建桶命名规则**
-1).需全局唯一，不能与已有的任何桶名称重复，包括其他用户创建的桶。  
-2).长度范围为3~63个字符，支持**小写字母**、**数字**、“**-**”、“**.**”  
-3).禁止使用类IP地址（如255.255.255.0）  
-4).禁止以“-”或“.”开头及结尾  
-5).禁止两个“.”相邻（如：“my..bucket”）  
-6).禁止“.”和“-”相邻（如：“my-.bucket”和“my.-bucket”） 
+1.需全局唯一，不能与已有的任何桶名称重复，包括其他用户创建的桶。  
+2.长度范围为3~63个字符，支持**小写字母**、**数字**、“**-**”、“**.**”  
+3.禁止使用类IP地址（如255.255.255.0）  
+4.禁止以“-”或“.”开头及结尾  
+5.禁止两个“.”相邻（如：“my..bucket”）  
+6.禁止“.”和“-”相邻（如：“my-.bucket”和“my.-bucket”） 
 
 ### **参数说明**
 此处仅列出创建桶独有的参数说明，公共参数请见[桶操作参数说明](#bucketParams)
@@ -553,12 +553,12 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
 ## **删除桶使用样例**
 桶为空时，桶的拥有者可以根据需要删除桶，以免占用桶数量配额。  
 桶为空包含两方面含义：  
-1).桶内没有任何对象或对象的任何历史版本。  
-2).桶内没有任何未合并的多段上传任务，即桶内不存在碎片。  
+1.桶内没有任何对象或对象的任何历史版本。  
+2.桶内没有任何未合并的多段上传任务，即桶内不存在碎片。  
   
 删除桶时，action**默认**会执行如下步骤：  
-1).判断桶是否为空，若桶非空，清空桶
-2).删除桶  
+1.判断桶是否为空，若桶非空，清空桶
+2.删除桶  
 若不允许action执行清空步骤，请设置参数*clear_bucket*为false。此时如果桶不为空，则会删除失败并提示桶不为空。
 ### **参数说明**
 此处仅列出删除桶独有的参数说明，公共参数说明请见[桶操作参数说明](#bucketParams)
