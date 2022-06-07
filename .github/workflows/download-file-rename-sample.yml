@@ -13,5 +13,5 @@ jobs:
           region: ${region}
           bucket_name: ${bucket_name}
           obs_file_path: src/download/obsFile1.txt
-          local_file_path: resource/download/file3.txt
+          local_file_path: ./resource/download/file3.txt
           operation_type: download

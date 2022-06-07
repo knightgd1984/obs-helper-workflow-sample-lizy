@@ -15,6 +15,6 @@ jobs:
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           region: ${region}
           bucket_name: ${bucket_name}
-          local_file_path: resource/upload/file1.txt
+          local_file_path: ./resource/upload/file1.txt
           obs_file_path: src/upload/newFile1.txt
           operation_type: upload

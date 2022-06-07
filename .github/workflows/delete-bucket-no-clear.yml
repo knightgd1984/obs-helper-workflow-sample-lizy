@@ -6,11 +6,11 @@ jobs:
     steps:
       - name: Delete Bucket on OBS
         uses: huaweicloud/obs-helper@v1.2.0
-        id: delete_bucket_on_obs
+        id: delete_bucket_not_clear
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           region: cn-north-4
-          operationType: deletebucket
+          operation_type: deletebucket
           bucket_name: bucket-test
           clear_bucket: false

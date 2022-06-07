@@ -1,5 +1,6 @@
 # OBS Helper action 各功能使用示例
-[OBS Helper action](https://github.com/marketplace/actions/huaweicloud-obs-helper)基于github workflow，实现：  
+[对象存储服务（Object Storage Service，OBS）](https://www.huaweicloud.com/product/obs.html)是一个基于对象的海量存储服务，为客户提供海量、安全、高可靠、低成本的数据存储能力。
+您可以使用[OBS Helper action](https://github.com/marketplace/actions/huaweicloud-obs-helper)实现如下对OBS的操作：
 1、[上传文件/文件夹](#uploadSample)  
 2、[下载文件/文件夹](#downloadSample)  
 3、[创建桶](#createBucketSample)  
@@ -8,31 +9,40 @@
 <p id="preparations">
 
 # **前置工作**
-1、需要开通华为云的OBS服务，并建好桶，[OBS主页](https://www.huaweicloud.com/product/obs.html)，[OBS文档](https://support.huaweicloud.com/obs/)；  
-2、需要在项目的setting--Secret--Actions下添加华为云OBS服务的ACCESSKEY、SECRETACCESSKEY两个参数，[获取ak/sk方式](https://support.huaweicloud.com/api-obs/obs_04_0116.html)；  
-3、注意替换参数region和参数bucket_name为自己OBS服务的真实region和桶名；  
+1、需要开通华为云的OBS服务，进行对象操作时需要提前建好桶。[OBS主页](https://www.huaweicloud.com/product/obs.html)，[OBS文档](https://support.huaweicloud.com/obs/)；  
+2、action调用华为云接口需要华为云鉴权，建议将您华为云账户的ak/sk配置于您GitHub工程中的settting-Secret-Actions，分别添加为ACCESSKEY、SECRETACCESSKEY以加密使用，[获取ak/sk方式](https://support.huaweicloud.com/api-obs/obs_04_0116.html)；  
+3、注意替换参数region和参数bucket_name为自己OBS服务的真实region和桶名（创建桶时为要创建的桶名）；  
 # **参数说明**
-### **对象操作参数**
-**access_key**: 华为云账号的AK字符串，需要加密，请参照**前置工作**中的步骤2进行设置并使用，**必填**；  
-**secret_key**：华为云账号的SK字符串，需要加密，请参照**前置工作**中的步骤2进行设置并使用，**必填**；  
-**region**：OBS所在区域字符串，默认为*cn-north-4*，可以使用[目前OBS支持的region](#regionList)，**必填**；  
-**bucket_name**：OBS的目标桶名，**必填**；  
-**operation_type**：要进行的操作，上传请使用*upload*，下载请使用*download*，**必填**；  
-**local_file_path**：对象的本地路径，上传对象时可填写多个，**必填**；  
-**obs_file_path**：对象在桶内的路径，**必填**；  
-**include_self_folder**：上传/下载文件夹时是否包含文件夹自身，默认为*false*，不填时默认不包含，**选填**；  
-**exclude**：下载对象时，要排除的对象，上传时无用，不填时默认不排除，**选填**；  
 
-### **桶操作参数**
-**access_key**: 华为云账号的AK字符串，需要加密，请参照**前置工作**中的步骤2进行设置并使用，**必填**；  
-**secret_key**：华为云账号的SK字符串，需要加密，请参照**前置工作**中的步骤2进行设置并使用，**必填**；  
-**region**：OBS所在区域字符串，默认为*cn-north-4*，可以使用[目前OBS支持的region](#regionList)，**必填**；  
-**bucket_name**：OBS的目标桶名，**必填**；  
-**operation_type**：要进行的操作，创建桶请使用*createbucket*，删除桶请使用*deletebucket*，**必填**；  
-**ACL**：创建桶时，桶的预定义访问策略，默认为*AclPrivate*（私有读写），可以使用[目前支持的预定义访问策略](#ACLList)，**选填**；  
-**storage_class**： 创建桶时，桶的存储类型，默认为*StorageClassStandard*（标准存储），可以使用[目前支持的存储类型](#storageClassList)，**选填**；  
-**clear_bucket**：删除桶时，是否清空桶内全部对象/碎片，默认为*true*，**选填**；  
-### **参数支持列表**
+<p id="objectParams">
+
+## **对象操作参数说明**
+|  参数名称  |  参数说明  |  默认值  |  是否必填  |
+|  :----:  |  :----:  |  :----: |  :----:  |
+| access_key  | 访问密钥ID。与私有访问密钥关联的唯一标识符，和私有访问密钥(secret_key)一起使用，对请求进行加密签名。建议参照**前置工作**中的步骤2进行设置以加密使用。 |  无  |  是  |
+| secret_key  | 与访问密钥ID(access_key)结合使用的私有访问密钥，对请求进行加密签名，可标识发送方，并防止请求被修改。建议参照**前置工作**中的步骤2进行设置以加密使用。 |  无  |  是  |
+| region  | OBS服务所在区域 |  'cn-north-4'  |  是  |
+| bucket_name  | OBS的目标桶名 |  无  |  是  |
+| operation_type  | 要进行的操作，上传请使用*upload*，下载请使用*download* |  无  |  是  |
+| local_file_path  | 对象的本地路径，上传对象时可填写多个 |  无  |  是  |
+| obs_file_path  | 对象在桶内的路径 |  无  |  下载时必填  |
+| include_self_folder  | 上传/下载文件夹时是否包含文件夹自身，不填时默认不包含 |  false  |  否  |
+| exclude  | 下载对象时，要排除的对象，上传时无用，不填时默认不排除 |  无  |  否  |
+
+<p id="bucketParams">
+
+## **桶操作参数说明**
+|  参数名称  |  参数说明  |  默认值  |  是否必填  |
+|  :----:  |  :----:  |  :----: |  :----:  |
+| access_key  | 访问密钥ID。与私有访问密钥关联的唯一标识符，和私有访问密钥(secret_key)一起使用，对请求进行加密签名。建议参照**前置工作**中的步骤2进行设置以加密使用。 |  无  |  是  |
+| secret_key  | 与访问密钥ID(access_key)结合使用的私有访问密钥，对请求进行加密签名，可标识发送方，并防止请求被修改。建议参照**前置工作**中的步骤2进行设置以加密使用。 |  无  |  是  |
+| region  | OBS服务所在区域 |  'cn-north-4'  |  是  |
+| bucket_name  | OBS的目标桶名 |  无  |  是  |
+| operation_type  | 要进行的操作，创建桶请使用*createbucket*，删除桶请使用*deletebucket* |  无  |  是  |
+| public_read  | 创建桶时，是否开放桶公共读权限，不填时默认不开放。如需设置其他权限，请在创建桶后到控制台进行修改 |  false  |  否  |
+| storage_class  | 创建桶时，桶的存储类型，不填时默认为*标准存储*|  无  |  否  |
+| clear_bucket  | 删除桶时，是否清空桶内全部对象/碎片，不填时默认清空 |  true  |  否  |  
+## **参数支持列表**
 <p id="regionList"></p>
 
 目前OBS支持的区域名称和对应region如下
@@ -53,23 +63,13 @@
   亚太-新加坡：	 ap-southeast-3	
   中国-香港：	 ap-southeast-1	
 ```
-<p id="ACLList"></p>
-
-目前OBS支持的预定义访问策略(ACL)如下
-```text
-  私有读写： AclPrivate
-  公共读： AclPublicRead
-  公共读写： AclPublicReadWrite
-  桶公共读，桶内对象公共读： AclPublicReadDelivered
-  桶公共读写，桶内对象公共读写： AclPublicReadWriteDelivered
-```
 <p id="storageClassList"></p>
 
 目前OBS支持的存储类型(storage_class)如下
 ```text
-  标准存储： StorageClassStandard
-  低频访问存储： StorageClassWarm
-  归档存储： StorageClassCold
+  标准存储： standard
+  低频访问存储： infrequent
+  归档存储： archive
 ```
 # **对象操作使用样例**
 <p id="uploadSample"></p>
@@ -95,15 +95,13 @@
               ├── file1.txt
               └── file2.txt
 ```
-### **参数说明**
-**access_key**: 华为云账号的AK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
-**secret_key**：华为云账号的SK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
-**region**：OBS所在区域字符串，默认为*cn-north-4*，可以使用[目前OBS支持的region](#regionList)，**必填**；  
-**bucket_name**：OBS的目标桶名，**必填**；  
-**operation_type**：要进行的操作，上传请使用*upload*；  
-**local_file_path**：对象的本地路径，可填写多个，**必填**；  
-**obs_file_path**：对象在桶内的路径，**必填**；  
-**include_self_folder**：上传文件夹时是否包含文件夹自身，，不填时默认为*false*（不包含），**选填**；  
+### **上传参数说明**
+此处仅列出上传对象独有的参数说明，公共参数请见[对象操作参数说明](#objectParams)
+|  参数名称  |  参数说明  |  默认值  |  是否必填  |
+|  :----:  |  :----:  |  :----: |  :----:  |
+| operation_type  | 'upload' |  无  |  是  |
+| local_file_path  | 对象的本地路径，可填写多个 |  无  |  是  |
+| obs_file_path  | 要上传到桶内的路径 |  无  |  是  |
 ### 1、上传文件至OBS
 上传单个文件时，obs_file_path参数以'/'结尾，代表将文件不重命名传入文件夹中；不以'/'结尾代表将文件以新名称上传至对应路径
 #### 普通上传：
@@ -117,7 +115,7 @@
             secret_key: ${{ secrets.SECRETACCESSKEY }}
             region: cn-north-4
             bucket_name: ${bucket_name}
-            local_file_path: resource/upload/file1.txt
+            local_file_path: ./resource/upload/file1.txt
             obs_file_path: src/upload/
             operation_type: upload
 ```
@@ -139,7 +137,7 @@
         secret_key: ${{ secrets.SECRETACCESSKEY }}
         region: cn-north-4
         bucket_name: ${bucket_name}
-        local_file_path: resource/upload/file1.txt
+        local_file_path: ./resource/upload/file1.txt
         obs_file_path: src/upload/newFile1.txt
         operation_type: upload
 ```
@@ -162,7 +160,7 @@
             secret_key: ${{ secrets.SECRETACCESSKEY }}
             region: cn-north-4
             bucket_name: ${bucket_name}
-            local_file_path: resource/upload/folder2
+            local_file_path: ./resource/upload/folder2
             obs_file_path: src/upload/newFolder
             operation_type: upload
             include_self_folder: false     # 此时只上传了resource/upload/folder2内的文件和文件夹
@@ -204,7 +202,7 @@
             secret_key: ${{ secrets.SECRETACCESSKEY }}
             region: cn-north-4
             bucket_name: ${bucket_name}
-            local_file_path: resource/upload/folder2
+            local_file_path: ./resource/upload/folder2
             obs_file_path: src/upload/newFolder
             operation_type: upload
             include_self_folder: true    # 此时会将folder2文件夹也上传到src/upload/newFolder中
@@ -242,16 +240,16 @@
 ```yaml
         - name: Upload Folder and File To OBS
           uses: huaweicloud/obs-helper@v1.2.0
-          id: upload_mult_files_to_obs
+          id: upload_multi_files_to_obs
           with:
             access_key: ${{ secrets.ACCESSKEY }}
             secret_key: ${{ secrets.SECRETACCESSKEY }}
             region: cn-north-4
             bucket_name: ${bucket_name}
             local_file_path: |
-              resource/upload/folder1
-              resource/upload/folder2
-              resource/upload/file1.txt
+              ./resource/upload/folder1
+              ./resource/upload/folder2
+              ./resource/upload/file1.txt
             obs_file_path: src/upload 
             operation_type: upload
             include_self_folder: true
@@ -285,7 +283,7 @@
                     └── file2-1.txt
             └── file1.txt
 ```
-完整样例： [.github/workflows/upload-mult-files-sample.yml](.github/workflows/upload-mult-files-sample.yml)
+完整样例： [.github/workflows/upload-multi-files-sample.yml](.github/workflows/upload-multi-files-sample.yml)
 
 <p id="downloadSample"></p>
 
@@ -310,16 +308,14 @@
               └── obsFile2-1.txt(文件夹)
                      └──  localFile.txt
 ```
-### **参数说明**
-**access_key**: 华为云账号的AK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
-**secret_key**：华为云账号的SK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
-**region**：OBS所在区域字符串，默认为*cn-north-4*，可以使用[目前OBS支持的region](#regionList)，**必填**；  
-**bucket_name**：OBS的目标桶名，**必填**；  
-**operation_type**：要进行的操作，下载请使用*download*，**必填**；  
-**local_file_path**：对象的本地路径，上传对象时可填写多个，**必填**；  
-**obs_file_path**：对象在桶内的路径，**必填**；  
-**include_self_folder**：下载文件夹时是否包含文件夹自身，默认为*false*（不包含），**选填**；  
-**exclude**：下载时，要排除的对象，不填时默认不排除任何对象，**选填**；  
+### **下载参数说明**
+此处仅列出下载对象独有的参数说明，公共参数请见[对象操作参数说明](#objectParams)
+|  参数名称  |  参数说明  |  默认值  |  是否必填  |
+|  :----:  |  :----:  |  :----: |  :----:  |
+| operation_type  | 'download' |  无  |  是  |
+| local_file_path  | 对象的本地路径 |  无  |  是  |
+| obs_file_path  | 对象在桶内的路径 |  无  |  是  |
+| exclude  | 下载对象时，要排除的对象，不填时默认不排除 |  无  |  否  | 
 ### 1、从OBS下载文件
 下载文件时，首先会检查本地是否存在local_file_path代表的文件/文件夹，  
 如果不存在此文件/文件夹，会尝试将文件下载为文件local_file_path；  
@@ -338,7 +334,7 @@
             region: cn-north-4
             bucket_name: ${bucket_name}
             obs_file_path: src/download/obsFile1.txt
-            local_file_path: resource/download/
+            local_file_path: ./resource/download/
             operation_type: download
 ```
 下载成功后，本地的目录结构应该为：
@@ -366,7 +362,7 @@
             region: cn-north-4
             bucket_name: ${bucket_name}
             obs_file_path: src/download/obsFile1.txt
-            local_file_path: resource/download/file3.txt
+            local_file_path: ./resource/download/file3.txt
             operation_type: download
 ```
 下载成功后，本地的目录结构应该为：
@@ -394,7 +390,7 @@
             region: cn-north-4
             bucket_name: ${bucket_name}
             obs_file_path: src/download/obsFolder2/obsFile2-1.txt
-            local_file_path: resource/download
+            local_file_path: ./resource/download
             operation_type: download
 ```
 下载成功后，本地的目录结构应该为
@@ -426,7 +422,7 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
             region: cn-north-4
             bucket_name: ${bucket_name}
             obs_file_path: src/download
-            local_file_path: resource/download
+            local_file_path: ./resource/download
             operation_type: download
 ```
 此时待下载的文件和文件夹如下:
@@ -466,7 +462,7 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
             region: cn-north-4
             bucket_name: ${bucket_name}
             obs_file_path: src/download
-            local_file_path: resource/download
+            local_file_path: ./resource/download
             operation_type: download
             include_self_folder: true
             # 下载时排除的文件/文件夹，可一次排除多个路径
@@ -499,24 +495,24 @@ Tips：如果文件夹'resource/download/obsFile2-1.txt'中仍然存在文件夹
 完整样例： [.github/workflows/download-folder-exculde-objects-sample.yml](.github/workflows/download-folder-exculde-objects-sample.yml)
 
 # **桶操作使用样例**
-OBS桶命名规则：  
-3～63个字符，数字或字母开头，支持**小写字母**、**数字**、“**-**”、“**.**”  
-禁止使用类IP地址（如255.255.255.0）  
-禁止以“-”或“.”开头及结尾  
-禁止两个“.”相邻（如：“my..bucket”）  
-禁止“.”和“-”相邻（如：“my-.bucket”和“my.-bucket”） 
-
 <p id="createBucketSample"></p>
 
-## **创建桶使用样例**
+## **创建桶使用样例**  
+### **创建桶命名规则**
+1).需全局唯一，不能与已有的任何桶名称重复，包括其他用户创建的桶。  
+2).长度范围为3~63个字符，支持**小写字母**、**数字**、“**-**”、“**.**”  
+3).禁止使用类IP地址（如255.255.255.0）  
+4).禁止以“-”或“.”开头及结尾  
+5).禁止两个“.”相邻（如：“my..bucket”）  
+6).禁止“.”和“-”相邻（如：“my-.bucket”和“my.-bucket”） 
+
 ### **参数说明**
-**access_key**: 华为云账号的AK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
-**secret_key**：华为云账号的SK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
-**region**：OBS所在区域字符串，默认为*cn-north-4*，可以使用[目前OBS支持的region](#regionList)，**必填**；  
-**bucket_name**：OBS的目标桶名，**必填**；  
-**operation_type**：要进行的操作，创建桶请使用*createbucket*，**必填**；  
-**ACL**：创建桶时，桶的预定义访问策略，默认为*AclPrivate*（私有读写），可以使用[目前支持的预定义访问策略](#ACLList)，**选填**；  
-**storage_class**： 创建桶时，桶的存储类型，默认为*StorageClassStandard*（标准存储），可以使用[目前支持的存储类型](#storageClassList)，**选填**；  
+此处仅列出创建桶独有的参数说明，公共参数请见[桶操作参数说明](#bucketParams)
+|  参数名称  |  参数说明  |  默认值  |  是否必填  |
+|  :----:  |  :----:  |  :----: |  :----:  |
+| operation_type  | 'createbucket' |  无  |  是  |
+| public_read  | 创建桶时，是否开放桶公共读权限，不填时默认不开放。如需设置其他权限，请在创建桶后到控制台进行修改 |  false  |  否  |
+| storage_class  | 创建桶时，桶的存储类型，不填时默认为*标准存储*|  无  |  否  |
 ### 默认创建： 
 假设您的OBS中不存在名为'bucket-test'的桶   
 ```yaml
@@ -527,30 +523,30 @@ OBS桶命名规则：
             access_key: ${{ secrets.ACCESSKEY }}
             secret_key: ${{ secrets.SECRETACCESSKEY }}
             region: cn-north-4
-            operationType: createbucket
+            operation_type: createbucket
             bucket_name: bucket-test
 ```
-执行成功后，您的OBS中会新增一个名为'bucket-test'的桶，桶的预定义访问策略为**私有读写**，存储类型**标准存储**
+执行成功后，您的OBS中会新增一个名为'bucket-test'的桶，未开放桶的**公共读**权限，存储类型**标准存储**
 
 完整样例： [.github/workflows/create-bucket-default.yml](.github/workflows/create-bucket-default.yml)
-### 指定预定义访问策略/存储类型：
+### 开放公共读权限&&指定存储类型：
 假设您的OBS中不存在名为'bucket-test'的桶   
 ```yaml
         - name: Create Bucket on OBS
           uses: huaweicloud/obs-helper@v1.2.0
-          id: create_bucket_on_obs
+          id: create_bucket_with_policy_on_obs
           with:
             access_key: ${{ secrets.ACCESSKEY }}
             secret_key: ${{ secrets.SECRETACCESSKEY }}
             region: cn-north-4
-            operationType: createbucket
+            operation_type: createbucket
             bucket_name: bucket-test
-            ACL: AclPublicReadWrite
-            storage_class: StorageClassWarm
+            public_read: true
+            storage_class: infrequent
 ```
-执行成功后，您的OBS中会新增一个名为'bucket-test'的桶，桶的预定义访问策略为**公共读写**，存储类型**低频访问存储**
+执行成功后，您的OBS中会新增一个名为'bucket-test'的桶，并且开放桶的**公共读**权限，存储类型为**低频访问存储**
 
-完整样例： [.github/workflows/create-bucket.yml](.github/workflows/create-bucket.yml)
+完整样例： [.github/workflows/create-bucket-with-policy.yml](.github/workflows/create-bucket-with-policy.yml)
 
 <p id="deleteBucketSample"></p>
 
@@ -565,12 +561,11 @@ OBS桶命名规则：
 2).删除桶  
 若不允许action执行清空步骤，请设置参数*clear_bucket*为false。此时如果桶不为空，则会删除失败并提示桶不为空。
 ### **参数说明**
-**access_key**: 华为云账号的AK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
-**secret_key**：华为云账号的SK字符串，需要加密，请参照[前置工作](#preparations)中的步骤2进行设置并使用，**必填**；  
-**region**：OBS所在区域字符串，默认为*cn-north-4*，可以使用[目前OBS支持的region](#regionList)，**必填**；  
-**bucket_name**：OBS的目标桶名，**必填**；  
-**operation_type**：要进行的操作，删除桶请使用*deletebucket*，**必填**；  
-**clear_bucket**：删除桶时，是否清空桶内全部对象/碎片，默认为*true*（清空），**选填**；  
+此处仅列出删除桶独有的参数说明，公共参数说明请见[桶操作参数说明](#bucketParams)
+|  参数名称  |  参数说明  |  默认值  |  是否必填  |
+|  :----:  |  :----:  |  :----: |  :----:  |
+| operation_type  | 'deletebucket' |  无  |  是  |
+| clear_bucket  | 删除桶时，是否清空桶内全部对象/碎片，不填时默认清空 |  true  |  否  |   
 ### 清空桶内对象+删除桶：
 假设您的OBS中存在名为'bucket-test'的桶
 ```yaml
@@ -581,7 +576,7 @@ OBS桶命名规则：
             access_key: ${{ secrets.ACCESSKEY }}
             secret_key: ${{ secrets.SECRETACCESSKEY }}
             region: cn-north-4
-            operationType: deletebucket
+            operation_type: deletebucket
             bucket_name: bucket-test
 ```
 执行成功后，桶'bucket-test'会被清空并删除。
@@ -592,12 +587,12 @@ OBS桶命名规则：
 ```yaml
         - name: Delete Bucket on OBS
           uses: huaweicloud/obs-helper@v1.2.0
-          id: delete_bucket_on_obs
+          id: delete_bucket_not_clear
           with:
             access_key: ${{ secrets.ACCESSKEY }}
             secret_key: ${{ secrets.SECRETACCESSKEY }}
             region: cn-north-4
-            operationType: deletebucket
+            operation_type: deletebucket
             bucket_name: bucket-test
             clear_bucket: false
 ```

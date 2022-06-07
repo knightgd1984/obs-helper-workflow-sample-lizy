@@ -11,5 +11,5 @@ jobs:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           region: cn-north-4
-          operationType: deletebucket
+          operation_type: deletebucket
           bucket_name: bucket-test

@@ -11,7 +11,5 @@ jobs:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           region: cn-north-4
-          operationType: createbucket
+          operation_type: createbucket
           bucket_name: bucket-test
-          ACL: AclPublicReadWrite
-          storage_class: StorageClassWarm

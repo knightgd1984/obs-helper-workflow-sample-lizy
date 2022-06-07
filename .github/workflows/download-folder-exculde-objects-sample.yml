@@ -13,7 +13,7 @@ jobs:
           region: ${region}
           bucket_name: ${bucket_name}
           obs_file_path: src/download
-          local_file_path: resource/download
+          local_file_path: ./resource/download
           operation_type: download
           include_self_folder: yes
           exclude: |
