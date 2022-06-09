@@ -8,13 +8,13 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Upload and Rename File To OBS
-        uses: huaweicloud/obs-helper@v1.1.0
+        uses: huaweicloud/obs-helper@v1.2.0
         id: upload_file_to_obs
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           region: ${region}
           bucket_name: ${bucket_name}
-          local_file_path: resource/upload/file1.txt
+          local_file_path: ./resource/upload/file1.txt
           obs_file_path: src/upload/newFile1.txt
           operation_type: upload

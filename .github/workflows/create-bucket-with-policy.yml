@@ -1,0 +1,17 @@
+on: [push]
+
+jobs:
+  obs_helper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Bucket on OBS
+        uses: huaweicloud/obs-helper@v1.2.0
+        id: create_bucket_with_policy_on_obs
+        with:
+          access_key: ${{ secrets.ACCESSKEY }}
+          secret_key: ${{ secrets.SECRETACCESSKEY }}
+          region: cn-north-4
+          operation_type: createbucket
+          bucket_name: bucket-test
+          public_read: true
+          storage_class: infrequent

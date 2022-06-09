@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Folder Exclude Some Objects From OBS
-        uses: huaweicloud/obs-helper@v1.1.0
+        uses: huaweicloud/obs-helper@v1.2.0
         id: download_folder_from_obs
         with:
           access_key: ${{ secrets.ACCESSKEY }}
@@ -13,7 +13,7 @@ jobs:
           region: ${region}
           bucket_name: ${bucket_name}
           obs_file_path: src/download
-          local_file_path: resource/download
+          local_file_path: ./resource/download
           operation_type: download
           include_self_folder: yes
           exclude: |
