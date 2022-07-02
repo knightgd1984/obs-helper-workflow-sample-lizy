@@ -11,6 +11,6 @@ jobs:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           bucket_name: obs-lizy20220702
-          obs_file_path: src/download/obsFile1.txt
-          local_file_path: ./resource/download
+          obs_file_path: src/download/localFile.txt
+          local_file_path: ./resource/download/folder1
           operation_type: download
