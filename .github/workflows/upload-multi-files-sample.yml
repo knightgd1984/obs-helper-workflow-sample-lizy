@@ -20,4 +20,4 @@ jobs:
             ./resource/upload/file1.txt    
           obs_file_path: src/upload 
           operation_type: upload
-          include_self_folder: yes
+          include_self_folder: true
