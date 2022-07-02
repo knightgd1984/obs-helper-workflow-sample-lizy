@@ -1,4 +1,4 @@
-on: [issues]
+on: [push]
 
 jobs:
   obs_helper:
@@ -10,7 +10,7 @@ jobs:
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          bucket_name: ${bucket_name}
+          bucket_name: obs-lizy20220702
           obs_file_path: src/download/obsFile1.txt
           local_file_path: ./resource/download
           operation_type: download

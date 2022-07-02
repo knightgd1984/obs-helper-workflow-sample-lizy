@@ -10,6 +10,6 @@ jobs:
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          region: cn-south-1
+          region: cn-north-4
           operation_type: createbucket
           bucket_name: obs-lizy-20220702-4
