@@ -1,4 +1,4 @@
-on: [push]
+on: [issues]
 
 jobs:
   obs_helper:
@@ -14,7 +14,6 @@ jobs:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           bucket_name: obs-lizy20220702
-          region: cn-north-4
           local_file_path: ./resource/upload/file1.txt
           obs_file_path: src/upload/newFile1.txt
           operation_type: upload
