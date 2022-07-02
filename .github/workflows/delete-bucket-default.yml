@@ -10,6 +10,6 @@ jobs:
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          region: cn-north-3
+          region: cn-north-1
           operation_type: deletebucket
           bucket_name: obs-lizy-20220702-2
