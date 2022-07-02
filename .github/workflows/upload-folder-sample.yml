@@ -1,4 +1,4 @@
-on: [push]
+on: [issues]
 
 jobs:
   obs_helper:
@@ -15,6 +15,6 @@ jobs:
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           bucket_name: obs-lizy20220702
           local_file_path: ./resource/upload/folder2
-          obs_file_path: src/upload/newFolder2
+          obs_file_path: src/upload/newFolder
           operation_type: upload
-          include_self_folder: true
+          include_self_folder: false
