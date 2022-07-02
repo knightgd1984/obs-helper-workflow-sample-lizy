@@ -1,4 +1,4 @@
-on: []
+on: [issues]
 
 jobs:
   obs_helper:
