@@ -15,6 +15,6 @@ jobs:
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           bucket_name: obs-lizy20220702
           local_file_path: ./resource/upload/folder2
-          obs_file_path: src/upload/newFolder
+          obs_file_path: src/upload/newFolder2
           operation_type: upload
-          include_self_folder: false
+          include_self_folder: true
