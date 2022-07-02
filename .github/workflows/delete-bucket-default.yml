@@ -1,4 +1,4 @@
-on: [issues]
+on: [push]
 
 jobs:
   obs_helper:
@@ -10,6 +10,6 @@ jobs:
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          region: cn-north-4
+          region: cn-north-3
           operation_type: deletebucket
-          bucket_name: bucket-test
+          bucket_name: obs-lizy-20220702-2
