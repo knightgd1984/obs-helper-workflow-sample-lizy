@@ -13,7 +13,7 @@ jobs:
           bucket_name: obs-lizy20220702
           region: cn-north-4
           obs_file_path: src/download/localFile.txt
-          local_file_path: ./resource/download
+          local_file_path: ./resource/download/
           operation_type: download
 
       - name: ls
