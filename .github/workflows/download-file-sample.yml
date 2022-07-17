@@ -10,8 +10,8 @@ jobs:
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          bucket_name: obs-lizy20220702
+          bucket_name: obs-lizy2
           region: cn-north-4
-          obs_file_path: src/download/localFile.txt
+          obs_file_path: k8s/kubeconfig.json
           local_file_path: ./resource/download
           operation_type: download
