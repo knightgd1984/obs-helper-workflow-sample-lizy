@@ -20,4 +20,4 @@ jobs:
       - name: ls
         run: |
           ls -la ./resource/download
-          ls -la ./resource/download/kubeconfig.json
+          cat ./resource/download
