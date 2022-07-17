@@ -10,7 +10,7 @@ jobs:
         with:
           access_key: ${{ secrets.ACCESSKEY }}
           secret_key: ${{ secrets.SECRETACCESSKEY }}
-          bucket_name: obs-lizy-20220702-2
+          bucket_name: obs-lizy20220702
           region: cn-north-4
           obs_file_path: src/download/localFile.txt
           local_file_path: ./resource/download
