@@ -15,3 +15,7 @@ jobs:
           obs_file_path: k8s/kubeconfig.json
           local_file_path: ./resource/download
           operation_type: download
+
+      - name: ls
+        run: |
+          ls -la ./resource/download
