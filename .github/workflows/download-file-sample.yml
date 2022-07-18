@@ -12,11 +12,11 @@ jobs:
           secret_key: ${{ secrets.SECRETACCESSKEY }}
           bucket_name: obs-lizy3
           region: cn-north-4
-          obs_file_path: src/kubeconfig2.json
-          local_file_path: ./kube/kubeconfig.json
+          obs_file_path: src/kubeconfig.json
+          local_file_path: ./kube2/kubeconfig.json
           operation_type: download
 
       - name: ls
         run: |
-          ls -la ./kube
-          cat ./kube/kubeconfig.json
+          ls -la ./kube2
+          cat ./kube2/kubeconfig.json
